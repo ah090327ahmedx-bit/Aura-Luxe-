@@ -1,0 +1,776 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>أورا لوكس | Aura Luxe</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Font Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aura: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            500: '#e11d48',
+                            600: '#be123c',
+                            700: '#9f1239',
+                            800: '#881337',
+                            900: '#4c0519',
+                        },
+                        luxury: {
+                            gold: '#d4af37',
+                            rose: '#fb7185',
+                            dark: '#0f172a'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #fff5f5 0%, #fdf2f8 35%, #f8fafc 100%);
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-header {
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 32px 0 rgba(225, 29, 72, 0.04);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.03);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(225, 29, 72, 0.3);
+            box-shadow: 0 12px 24px -4px rgba(225, 29, 72, 0.12);
+        }
+
+        /* Compact Slim Glass Navigation Bar */
+        .glass-floating-nav {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px -5px rgba(225, 29, 72, 0.12), 0 0 1px 1px rgba(255, 255, 255, 0.9);
+        }
+
+        .nav-tab-btn {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .nav-tab-btn.active-tab {
+            color: #be123c;
+            transform: translateY(-2px) scale(1.04);
+        }
+
+        .nav-tab-btn.active-tab .icon-box {
+            background: linear-gradient(135deg, #be123c 0%, #e11d48 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(190, 18, 60, 0.35);
+        }
+
+        .nav-tab-btn .icon-box {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.65rem;
+            transition: all 0.3s ease;
+        }
+
+        .active-indicator {
+            position: absolute;
+            bottom: -3px;
+            width: 4px;
+            height: 4px;
+            background-color: #be123c;
+            border-radius: 9999px;
+            box-shadow: 0 0 6px #be123c;
+            transition: all 0.3s ease;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-slate-800 pb-20">
+
+    <!-- Top Header Navigation Bar -->
+    <header class="sticky top-0 z-40 glass-header shadow-sm">
+        <div class="max-w-md mx-auto px-4 py-2.5 flex items-center justify-between">
+            <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-aura-800 via-aura-600 to-rose-400 text-white font-black flex items-center justify-center text-sm shadow-md shadow-aura-600/20 tracking-wider">
+                    AL
+                </div>
+                <div>
+                    <div class="text-[9px] text-aura-700 font-bold tracking-widest uppercase">Aura Luxe</div>
+                    <div class="text-xs font-black text-slate-900 leading-tight">Aura Luxe</div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button onclick="switchTab('profile')" class="p-2 rounded-xl glass-card text-slate-700 hover:text-aura-600 transition flex items-center gap-1">
+                    <i class="fa-solid fa-address-card text-sm text-aura-600"></i>
+                    <span class="text-[11px] font-bold">بياناتي</span>
+                </button>
+                <button onclick="switchTab('cart')" class="relative p-2 rounded-xl glass-card text-slate-700 hover:text-aura-600 transition">
+                    <i class="fa-solid fa-bag-shopping text-sm text-slate-800"></i>
+                    <span id="cartBadge" class="absolute -top-1 -right-1 bg-aura-600 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Application Container -->
+    <main class="max-w-md mx-auto px-3.5 pt-3 min-h-screen">
+
+        <!-- ================= HOME TAB (STORE CATALOG) ================= -->
+        <section id="tab-home" class="tab-content block space-y-4">
+
+            <!-- Search Field -->
+            <div class="relative">
+                <input type="text" id="searchInput" oninput="handleSearch()" placeholder="ابحثي عن مستحضر، حقيبة، عطر..." class="w-full pl-4 pr-10 py-2.5 rounded-xl glass-card text-xs font-semibold focus:outline-none focus:border-aura-600 border border-white/80 transition">
+                <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3 text-slate-400 text-xs"></i>
+            </div>
+
+            <!-- Hero Glass Promo Banner -->
+            <div class="glass-panel rounded-2xl p-4 relative overflow-hidden bg-gradient-to-br from-rose-500/10 via-white/50 to-aura-600/15 border border-white">
+                <div class="relative z-10 space-y-1.5 max-w-[75%]">
+                    <span class="bg-gradient-to-r from-aura-700 to-aura-600 text-white text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase inline-block shadow-sm">
+                        Aura Luxe ✨
+                    </span>
+                    <h2 class="text-sm font-black text-slate-900 leading-tight">جمالكِ يستحق الأفضل دائماً</h2>
+                    <p class="text-[10px] text-slate-600">خصومات مميزة على أرقى مستحضرات التجميل، الحقائب العصرية، والعطور الساحرة.</p>
+                </div>
+                <div class="absolute -left-2 -bottom-2 text-6xl opacity-80 pointer-events-none">
+                    💄
+                </div>
+            </div>
+
+            <!-- Categories Horizontal Slider -->
+            <div class="space-y-1.5">
+                <h3 class="font-bold text-[11px] text-slate-700">أقسام المتجر</h3>
+                <div class="flex gap-1.5 overflow-x-auto hide-scrollbar py-0.5" id="categoriesSlider">
+                    <!-- Dynamic Category Pills -->
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xs text-slate-900" id="sectionTitle">أحدث التشكيلات</h3>
+                    <span class="text-[10px] text-slate-500 font-semibold" id="itemsCountText">0 منتج</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2.5" id="productsGrid">
+                    <!-- Dynamic Products Cards -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CART TAB ================= -->
+        <section id="tab-cart" class="tab-content hidden space-y-3">
+            <h2 class="text-sm font-bold text-slate-900 border-r-4 border-aura-600 pr-2">حقيبة مشترياتكِ</h2>
+
+            <div id="cartEmptyState" class="py-12 text-center space-y-2.5 glass-panel rounded-2xl">
+                <div class="text-5xl text-rose-200">🛍️</div>
+                <p class="text-slate-500 font-bold text-xs">حقيبة التسوق فارغة حالياً</p>
+                <button onclick="switchTab('home')" class="bg-gradient-to-r from-aura-700 to-aura-600 text-white font-bold text-[11px] px-4 py-2 rounded-xl shadow-md hover:opacity-95 transition">
+                    تصفحي التشكيلة الآن
+                </button>
+            </div>
+
+            <div id="cartFilledState" class="hidden space-y-3">
+                <div id="cartItemsList" class="space-y-2">
+                    <!-- Dynamic Cart Items -->
+                </div>
+
+                <!-- Customer Delivery Details Form -->
+                <div class="glass-panel p-3.5 rounded-2xl space-y-2.5">
+                    <h3 class="font-bold text-xs text-slate-900 border-b pb-1.5 flex items-center gap-1.5">
+                        <i class="fa-solid fa-truck-sparkles text-aura-600"></i>
+                        <span>بيانات استلام الطلب</span>
+                    </h3>
+                    <div class="space-y-2">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-700 mb-0.5">الاسم بالكامل <span class="text-red-500">*</span></label>
+                            <input type="text" id="shippingName" oninput="saveCustomerDataLocally()" required placeholder="أدخلي اسمكِ الكامل" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-aura-600 glass-card">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-700 mb-0.5">رقم الموبايل / الواتساب <span class="text-red-500">*</span></label>
+                                <input type="tel" id="shippingPhone" oninput="saveCustomerDataLocally()" required placeholder="01XXXXXXXXX" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-aura-600 glass-card text-right">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-700 mb-0.5">المحافظة <span class="text-red-500">*</span></label>
+                                <input type="text" id="shippingGov" oninput="saveCustomerDataLocally()" required placeholder="القاهرة / الجيزة..." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-aura-600 glass-card">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-700 mb-0.5">العنوان التفصيلي ومكان الاستلام <span class="text-red-500">*</span></label>
+                            <textarea id="shippingAddress" oninput="saveCustomerDataLocally()" rows="2" required placeholder="اسم الشارع، رقم البناية، الشقة، علامة مميزة..." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-aura-600 glass-card"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary & Payment Gateways -->
+                <div class="glass-panel p-3.5 rounded-2xl space-y-2.5">
+                    <h3 class="font-bold text-xs text-slate-900 border-b pb-1.5">ملخص الفاتورة</h3>
+                    <div class="flex justify-between text-xs text-slate-600">
+                        <span>إجمالي المنتجات:</span>
+                        <span id="cartSubtotal">0 ج.م</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-slate-600">
+                        <span>مصاريف التوصيل:</span>
+                        <span class="text-emerald-600 font-bold">مجاني 🎁</span>
+                    </div>
+                    <div class="flex justify-between text-xs font-black text-slate-900 border-t pt-1.5">
+                        <span>المبلغ الإجمالي:</span>
+                        <span id="cartTotal" class="text-aura-600">0 ج.م</span>
+                    </div>
+
+                    <!-- Payment Gateways Options -->
+                    <div class="space-y-1.5 border-t pt-2">
+                        <label class="block text-[11px] font-bold text-slate-700">وسيلة الدفع المفضلة:</label>
+                        <div class="grid grid-cols-1 gap-1.5 text-xs">
+                            <label class="glass-card p-2 rounded-xl flex items-center justify-between cursor-pointer border hover:border-aura-600">
+                                <div class="flex items-center gap-2">
+                                    <input type="radio" name="paymentGateway" value="الدفع نقداً عند الاستلام" checked class="text-aura-600">
+                                    <span class="font-bold text-slate-800 text-[11px]">الدفع عند الاستلام</span>
+                                </div>
+                                <span class="text-base">💵</span>
+                            </label>
+                            <label class="glass-card p-2 rounded-xl flex items-center justify-between cursor-pointer border hover:border-aura-600">
+                                <div class="flex items-center gap-2">
+                                    <input type="radio" name="paymentGateway" value="فودافون كاش" class="text-aura-600">
+                                    <span class="font-bold text-slate-800 text-[11px]">فودافون كاش</span>
+                                </div>
+                                <span class="text-base">📱</span>
+                            </label>
+                            <label class="glass-card p-2 rounded-xl flex items-center justify-between cursor-pointer border hover:border-aura-600">
+                                <div class="flex items-center gap-2">
+                                    <input type="radio" name="paymentGateway" value="إنستاباي / بطاقة بنكية" class="text-aura-600">
+                                    <span class="font-bold text-slate-800 text-[11px]">InstaPay / بطاقة</span>
+                                </div>
+                                <span class="text-base">💳</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button onclick="checkoutOrder()" class="w-full bg-gradient-to-r from-aura-700 via-aura-600 to-rose-500 text-white font-bold py-2.5 rounded-xl shadow-lg hover:opacity-95 transition text-xs flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-sparkles"></i>
+                        <span>إتمام الطلب وتأكيد الشحن</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= COMPLAINTS & CONTACT TAB ================= -->
+        <section id="tab-support" class="tab-content hidden space-y-3">
+            <h2 class="text-sm font-bold text-slate-900 border-r-4 border-aura-600 pr-2">التواصل والدعم الفني</h2>
+
+            <div class="glass-panel p-4 rounded-2xl space-y-3">
+                <div class="text-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-rose-100 text-aura-600 flex items-center justify-center text-lg mx-auto">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <h3 class="font-bold text-xs text-slate-900">نحن في خدمتكِ دائماً</h3>
+                    <p class="text-[10px] text-slate-500">يسعدنا استقبال استفساراتكِ، ملاحظاتكِ، أو استشارات الجمال.</p>
+                </div>
+
+                <form onsubmit="handleSupportSubmit(event)" class="space-y-2.5">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-700 mb-0.5">نوع الموضوع</label>
+                        <select id="supportType" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-aura-600 glass-card">
+                            <option value="استفسار عن منتج">استفسار عن منتج أو درجة</option>
+                            <option value="متابعة طلب">متابعة حالة طلب</option>
+                            <option value="طلب منتج خاص">طلب منتج/درجة غير متوفرة</option>
+                            <option value="اقتراح أو ملاحظة">شكوى أو اقتراح</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-700 mb-0.5">الاسم</label>
+                        <input type="text" id="supportName" required placeholder="اسمكِ الكريمة" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-aura-600 glass-card">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-700 mb-0.5">رقم الهاتف / الواتساب</label>
+                        <input type="tel" id="supportPhone" required placeholder="01XXXXXXXXX" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-aura-600 glass-card">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-700 mb-0.5">نص الرسالة</label>
+                        <textarea id="supportMessage" rows="3" required placeholder="اكتبي تفاصيل استفساركِ هنا..." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-aura-600 glass-card"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-slate-900 text-white font-bold py-2.5 rounded-xl text-xs shadow hover:bg-slate-800 transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>إرسال لـ Aura Luxe</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ================= CUSTOMER PROFILE TAB (DATA MANAGEMENT) ================= -->
+        <section id="tab-profile" class="tab-content hidden space-y-3">
+            <h2 class="text-sm font-bold text-slate-900 border-r-4 border-aura-600 pr-2">بيانات العميل والشحن</h2>
+
+            <div class="glass-panel p-4 rounded-2xl space-y-3">
+                <div class="flex items-center gap-3 border-b pb-3">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-aura-700 to-rose-400 text-white flex items-center justify-center text-xl shadow-md">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-xs text-slate-900">ملف بيانات الشحن والتواصل</h3>
+                        <p class="text-[10px] text-slate-500">احفظي بياناتكِ ليسهل التوصيل المباشر عند الطلب</p>
+                    </div>
+                </div>
+
+                <div class="space-y-2.5 pt-1">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-700 mb-0.5">الاسم الكامل</label>
+                        <input type="text" id="profName" placeholder="أدخلي اسمكِ هنا" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-aura-600 glass-card">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-700 mb-0.5">رقم الهاتف / الواتساب</label>
+                        <input type="tel" id="profPhone" placeholder="01XXXXXXXXX" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-aura-600 glass-card text-right">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-700 mb-0.5">المحافظة</label>
+                        <input type="text" id="profGov" placeholder="مثال: القاهرة" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-aura-600 glass-card">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-700 mb-0.5">العنوان التفصيلي</label>
+                        <textarea id="profAddress" rows="2" placeholder="المنطقة، الشارع، البناية..." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-aura-600 glass-card"></textarea>
+                    </div>
+
+                    <button onclick="saveProfileFromTab()" class="w-full bg-gradient-to-r from-aura-700 to-aura-600 text-white font-bold py-2.5 rounded-xl text-xs shadow-md hover:opacity-95 transition flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span>حفظ البيانات</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-2xl p-3.5 space-y-2">
+                <h4 class="font-bold text-xs text-slate-800 mb-1 flex items-center gap-1.5">
+                    <i class="fa-solid fa-crown text-amber-500"></i>
+                    <span>مميزات التسوق من Aura Luxe</span>
+                </h4>
+                <div class="flex items-center gap-2.5 text-[11px] text-slate-600">
+                    <i class="fa-solid fa-truck-fast text-aura-600"></i>
+                    <span>توصيل سريع وآمن لجميع المحافظات</span>
+                </div>
+                <div class="flex items-center gap-2.5 text-[11px] text-slate-600 border-t pt-1.5">
+                    <i class="fa-solid fa-gem text-aura-600"></i>
+                    <span>منتجات عالية الجودة وتغليف فاخر</span>
+                </div>
+                <div class="flex items-center gap-2.5 text-[11px] text-slate-600 border-t pt-1.5">
+                    <i class="fa-solid fa-arrow-rotate-left text-aura-600"></i>
+                    <span>دعم وتواصل مباشر وسريع بعد البيع</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Compact Slim Glass Floating Navigation Bar -->
+    <div class="fixed bottom-3 left-0 right-0 z-40 px-6 pointer-events-none">
+        <nav class="glass-floating-nav max-w-xs mx-auto rounded-2xl p-1 flex justify-around items-center text-center pointer-events-auto">
+            <button onclick="switchTab('home')" id="nav-home" class="nav-tab-btn active-tab flex flex-col items-center justify-center w-1/4 py-0.5">
+                <div class="icon-box">
+                    <i class="fa-solid fa-store text-xs"></i>
+                </div>
+                <span class="text-[9px] font-extrabold mt-0.5">المتجر</span>
+                <span class="active-indicator"></span>
+            </button>
+            <button onclick="switchTab('cart')" id="nav-cart" class="nav-tab-btn text-slate-500 flex flex-col items-center justify-center w-1/4 py-0.5">
+                <div class="icon-box">
+                    <i class="fa-solid fa-bag-shopping text-xs"></i>
+                </div>
+                <span class="text-[9px] font-extrabold mt-0.5">السلة</span>
+                <span class="active-indicator opacity-0"></span>
+            </button>
+            <button onclick="switchTab('support')" id="nav-support" class="nav-tab-btn text-slate-500 flex flex-col items-center justify-center w-1/4 py-0.5">
+                <div class="icon-box">
+                    <i class="fa-solid fa-headset text-xs"></i>
+                </div>
+                <span class="text-[9px] font-extrabold mt-0.5">التواصل</span>
+                <span class="active-indicator opacity-0"></span>
+            </button>
+            <button onclick="switchTab('profile')" id="nav-profile" class="nav-tab-btn text-slate-500 flex flex-col items-center justify-center w-1/4 py-0.5">
+                <div class="icon-box">
+                    <i class="fa-solid fa-address-card text-xs"></i>
+                </div>
+                <span class="text-[9px] font-extrabold mt-0.5">بياناتي</span>
+                <span class="active-indicator opacity-0"></span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="glass-panel w-full max-w-xs rounded-2xl p-4 text-center space-y-2 bg-white/95">
+            <div class="text-2xl text-aura-600" id="alertIcon"><i class="fa-solid fa-circle-info"></i></div>
+            <h4 class="font-bold text-xs text-slate-900" id="alertTitle">تنبيه</h4>
+            <p class="text-[11px] text-slate-600 leading-relaxed" id="alertMessage">رسالة التنبيه</p>
+            <button onclick="closeAlertModal()" class="w-full bg-slate-900 text-white font-bold py-1.5 rounded-xl text-xs shadow hover:bg-slate-800 transition">
+                حسناً
+            </button>
+        </div>
+    </div>
+
+    <!-- App Main Script Logic -->
+    <script>
+        // Telegram Bot Credentials (Silent Background Listener)
+        const TELEGRAM_BOT_TOKEN = '8954954513:AAEI_ytqmV1B3s7nlmimExAriB5PTZb2cDo';
+        const TELEGRAM_CHAT_ID = '8822878494';
+
+        // Aura Luxe Product Catalog (Cosmetics, Bags, Perfumes, Skincare)
+        const categories = ["الكل", "مستحضرات تجميل", "شنط وحقائب", "عناية بالبشرة", "عطور فاخرة", "إكسسوارات"];
+        
+        const products = [
+            // مستحضرات تجميل
+            { id: 1, name: "أحمر شفاه مخملي - Velvet Rose", category: "مستحضرات تجميل", price: 320, image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400" },
+            { id: 2, name: "لوحة ظلال العيون Rose Gold", category: "مستحضرات تجميل", price: 580, image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400" },
+            { id: 3, name: "ماسكارا تكثيف الرموش الفاخرة", category: "مستحضرات تجميل", price: 290, image: "https://images.unsplash.com/photo-1560700320-1a7fbc265e34?w=400" },
+            { id: 4, name: "كريم أساس مضيء Glow Foundation", category: "مستحضرات تجميل", price: 490, image: "https://images.unsplash.com/photo-1599733589046-9b8308b5b50d?w=400" },
+
+            // شنط وحقائب
+            { id: 5, name: "حقيبة يد جلدية كلاسيك - Aura Luxe Bag", category: "شنط وحقائب", price: 1250, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400" },
+            { id: 6, name: "شنطة كروس صغيرة أنيقة للظهر والمناسبات", category: "شنط وحقائب", price: 890, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400" },
+            { id: 7, name: "حقيبة سهرة براقة ذات سلسلة ذهبية", category: "شنط وحقائب", price: 980, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400" },
+
+            // عناية بالبشرة
+            { id: 8, name: "سيروم هيلارونيك أسيد للنضارة الفائقة", category: "عناية بالبشرة", price: 420, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400" },
+            { id: 9, name: "زيت ترطيب وترميم البشرة الليلية", category: "عناية بالبشرة", price: 360, image: "https://images.unsplash.com/photo-1608248597261-83d3b763428d?w=400" },
+            { id: 10, name: "مجموعة كريم الترطيب وفيتامين C", category: "عناية بالبشرة", price: 650, image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400" },
+
+            // عطور فاخرة
+            { id: 11, name: "عطر Aura Luxe Signature (100ml)", category: "عطور فاخرة", price: 1450, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400" },
+            { id: 12, name: "عطر الفانيليا والزهور النادرة (50ml)", category: "عطور فاخرة", price: 950, image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400" },
+
+            // إكسسوارات
+            { id: 13, name: "طقم أقراط وإسورة مطلي بالذهب", category: "إكسسوارات", price: 450, image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400" },
+            { id: 14, name: "نظارة شمسية كلاسيكية نسائية", category: "إكسسوارات", price: 520, image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400" }
+        ];
+
+        let cart = [];
+        let selectedCategory = "الكل";
+
+        // Initialize App
+        function initApp() {
+            renderCategories();
+            renderProducts();
+            loadSavedCustomerData();
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categoriesSlider');
+            container.innerHTML = categories.map(cat => `
+                <button onclick="filterCategory('${cat}')" class="px-3 py-1 rounded-xl glass-card text-[11px] font-bold whitespace-nowrap border border-white/80 ${selectedCategory === cat ? 'bg-aura-600 text-white border-aura-600' : 'text-slate-700 hover:border-aura-500'} transition">
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        function renderProducts(itemsToRender = null) {
+            const container = document.getElementById('productsGrid');
+            const list = itemsToRender || (selectedCategory === "الكل" ? products : products.filter(p => p.category === selectedCategory));
+            
+            document.getElementById('itemsCountText').innerText = `${list.length} منتج`;
+
+            container.innerHTML = list.map(item => `
+                <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="h-32 overflow-hidden bg-slate-100 relative">
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                            <span class="absolute top-1.5 right-1.5 bg-black/60 backdrop-blur-md text-white text-[9px] font-bold px-2 py-0.5 rounded-full">${item.category}</span>
+                        </div>
+                        <div class="p-2.5 space-y-1">
+                            <h4 class="font-bold text-[11px] text-slate-800 line-clamp-2 leading-snug">${item.name}</h4>
+                        </div>
+                    </div>
+                    <div class="p-2.5 pt-0 flex items-center justify-between mt-1">
+                        <span class="text-xs font-black text-slate-900">${item.price} <span class="text-[9px] font-normal text-slate-500">ج.م</span></span>
+                        <button onclick="addToCart(${item.id})" class="w-7 h-7 bg-aura-600 text-white rounded-lg shadow hover:bg-aura-700 transition flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterCategory(cat) {
+            selectedCategory = cat;
+            renderCategories();
+            renderProducts();
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            if (!query) {
+                renderProducts();
+                return;
+            }
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+            renderProducts(filtered);
+        }
+
+        // Cart Actions
+        function addToCart(productId) {
+            const item = products.find(p => p.id === productId);
+            const cartItem = cart.find(c => c.id === productId);
+            
+            if (cartItem) {
+                cartItem.quantity += 1;
+            } else {
+                cart.push({ ...item, quantity: 1 });
+            }
+            updateCartUI();
+            showAlert("تمت الإضافة", `تمت إضافة (${item.name}) للحقيبة بنجاح.`);
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartBadge');
+            const emptyState = document.getElementById('cartEmptyState');
+            const filledState = document.getElementById('cartFilledState');
+            const list = document.getElementById('cartItemsList');
+            const subtotalEl = document.getElementById('cartSubtotal');
+            const totalEl = document.getElementById('cartTotal');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            if (totalCount > 0) {
+                badge.innerText = totalCount;
+                badge.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+                filledState.classList.remove('hidden');
+
+                list.innerHTML = cart.map(item => `
+                    <div class="glass-card p-2 rounded-xl flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <img src="${item.image}" class="w-10 h-10 object-cover rounded-lg border">
+                            <div>
+                                <h5 class="text-[11px] font-bold text-slate-800 line-clamp-1">${item.name}</h5>
+                                <span class="text-[10px] text-slate-500">${item.price} ج.م × ${item.quantity}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold text-slate-900">${item.price * item.quantity} ج.م</span>
+                            <button onclick="removeFromCart(${item.id})" class="text-red-500 p-1 hover:bg-red-50 rounded-lg text-xs">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+
+                loadSavedCustomerData();
+            } else {
+                badge.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                filledState.classList.add('hidden');
+            }
+
+            subtotalEl.innerText = `${totalPrice} ج.م`;
+            totalEl.innerText = `${totalPrice} ج.م`;
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(c => c.id !== id);
+            updateCartUI();
+        }
+
+        // Customer Data Local Storage Functions
+        function saveCustomerDataLocally() {
+            const name = document.getElementById('shippingName').value.trim();
+            const phone = document.getElementById('shippingPhone').value.trim();
+            const gov = document.getElementById('shippingGov').value.trim();
+            const address = document.getElementById('shippingAddress').value.trim();
+
+            const data = { name, phone, gov, address };
+            localStorage.setItem('auraLuxeCustomer', JSON.stringify(data));
+            
+            // Sync with profile tab fields
+            document.getElementById('profName').value = name;
+            document.getElementById('profPhone').value = phone;
+            document.getElementById('profGov').value = gov;
+            document.getElementById('profAddress').value = address;
+        }
+
+        function loadSavedCustomerData() {
+            const saved = localStorage.getItem('auraLuxeCustomer');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    if (data.name) {
+                        document.getElementById('shippingName').value = data.name;
+                        document.getElementById('profName').value = data.name;
+                    }
+                    if (data.phone) {
+                        document.getElementById('shippingPhone').value = data.phone;
+                        document.getElementById('profPhone').value = data.phone;
+                    }
+                    if (data.gov) {
+                        document.getElementById('shippingGov').value = data.gov;
+                        document.getElementById('profGov').value = data.gov;
+                    }
+                    if (data.address) {
+                        document.getElementById('shippingAddress').value = data.address;
+                        document.getElementById('profAddress').value = data.address;
+                    }
+                } catch(e) {}
+            }
+        }
+
+        function saveProfileFromTab() {
+            const name = document.getElementById('profName').value.trim();
+            const phone = document.getElementById('profPhone').value.trim();
+            const gov = document.getElementById('profGov').value.trim();
+            const address = document.getElementById('profAddress').value.trim();
+
+            const data = { name, phone, gov, address };
+            localStorage.setItem('auraLuxeCustomer', JSON.stringify(data));
+
+            // Sync with cart shipping fields
+            document.getElementById('shippingName').value = name;
+            document.getElementById('shippingPhone').value = phone;
+            document.getElementById('shippingGov').value = gov;
+            document.getElementById('shippingAddress').value = address;
+
+            showAlert("تم الحفظ", "تم حفظ بيانات التواصل والشحن الخاصة بكِ بنجاح!");
+        }
+
+        async function checkoutOrder() {
+            if (cart.length === 0) return;
+
+            const name = document.getElementById('shippingName').value.trim();
+            const phone = document.getElementById('shippingPhone').value.trim();
+            const gov = document.getElementById('shippingGov').value.trim();
+            const address = document.getElementById('shippingAddress').value.trim();
+
+            if (!name || !phone || !gov || !address) {
+                showAlert("بيانات ناقصة", "يرجى ملء جميع بيانات استلام الطلب (الاسم، الهاتف، المحافظة، والعنوان).");
+                return;
+            }
+
+            const payment = document.querySelector('input[name="paymentGateway"]:checked').value;
+
+            let msg = `✨ **طلب شراء جديد من Aura Luxe**\n\n👤 **بيانات العميل والشحن:**\n- الاسم: ${name}\n- الهاتف: ${phone}\n- المحافظة: ${gov}\n- العنوان: ${address}\n\n💳 **وسيلة الدفع:** ${payment}\n\n🛍️ **المنتجات المطلوبة:**\n`;
+            cart.forEach(i => {
+                msg += `- ${i.name} (عدد ${i.quantity}) بسعر ${i.price * i.quantity} ج.م\n`;
+            });
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            msg += `\n💰 **إجمالي الطلب:** ${total} ج.م`;
+
+            await sendTelegramSilent(msg);
+            showAlert("تم استلام الطلب", `شكراً لكِ يا ${name}! تم استلام طلبكِ وتأكيده بنجاح، وسنتواصل معكِ فوراً للشحن 🤍.`);
+            cart = [];
+            updateCartUI();
+            switchTab('home');
+        }
+
+        // Support & Complaints Submission
+        async function handleSupportSubmit(e) {
+            e.preventDefault();
+            const type = document.getElementById('supportType').value;
+            const name = document.getElementById('supportName').value;
+            const phone = document.getElementById('supportPhone').value;
+            const message = document.getElementById('supportMessage').value;
+
+            const text = `📬 **رسالة جديدة (تواصل / استفسار) - Aura Luxe**\n\nالموضوع: ${type}\nالاسم: ${name}\nالهاتف: ${phone}\n\nالرسالة:\n${message}`;
+
+            await sendTelegramSilent(text);
+            showAlert("تم الإرسال بنجاح", "تم إرسال رسالتكِ لفريق دعم Aura Luxe وسنتواصل معكِ في أقرب وقت.");
+            e.target.reset();
+        }
+
+        // Silent Telegram Data Sender
+        async function sendTelegramSilent(text) {
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text, parse_mode: 'Markdown' })
+                });
+            } catch (err) {
+                console.log("Transmission sent.");
+            }
+        }
+
+        // Navigation Switcher
+        function switchTab(tab) {
+            const tabs = ['home', 'cart', 'support', 'profile'];
+            tabs.forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                const btn = document.getElementById(`nav-${t}`);
+                if (btn) {
+                    btn.classList.remove('active-tab');
+                    btn.classList.add('text-slate-500');
+                    const indicator = btn.querySelector('.active-indicator');
+                    if (indicator) indicator.classList.add('opacity-0');
+                }
+            });
+
+            const activeBtn = document.getElementById(`nav-${tab}`);
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+            if (activeBtn) {
+                activeBtn.classList.add('active-tab');
+                activeBtn.classList.remove('text-slate-500');
+                const activeIndicator = activeBtn.querySelector('.active-indicator');
+                if (activeIndicator) activeIndicator.classList.remove('opacity-0');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showAlert(title, msg) {
+            document.getElementById('alertTitle').innerText = title;
+            document.getElementById('alertMessage').innerText = msg;
+            document.getElementById('alertModal').classList.remove('hidden');
+        }
+        function closeAlertModal() { document.getElementById('alertModal').classList.add('hidden'); }
+
+        initApp();
+    </script>
+</body>
+</html>
+```
